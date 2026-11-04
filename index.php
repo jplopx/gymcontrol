@@ -1,9 +1,15 @@
+<?php
+session_start();
+$logado = isset($_SESSION['usuario_id']);
+$painelUrl = $logado ? $_SESSION['usuario_tipo'] . '/index.php' : 'login.php';
+$usuarioNome = $logado ? $_SESSION['usuario_nome'] : '';
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GymControl — O Sistema Integrado com Reconhecimento Facial para Academias</title>
+  <title>GymControl — Sistema Integrado para Academias</title>
   
   <!-- Fonts & FontAwesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +19,7 @@
   
   <style>
     /* ==========================================================================
-       1. VARIAVEIS CSS & RESET
+       1. VARIAVEIS CSS & RESET (Identidade Visual Padrão)
        ========================================================================== */
     :root {
       --cor-principal: #0284c7;
@@ -284,7 +290,7 @@
     }
 
     /* ==========================================================================
-       5. SEÇÃO: O QUE É O GYMCONTROL (3 PILARES)
+       5. PILARES
        ========================================================================== */
     .section {
       padding: 80px 0;
@@ -357,7 +363,7 @@
     }
 
     /* ==========================================================================
-       6. SEÇÃO: RECURSOS & FUNCIONALIDADES
+       6. RECURSOS
        ========================================================================== */
     .features-section {
       background-color: var(--bg-surface);
@@ -401,7 +407,7 @@
     }
 
     /* ==========================================================================
-       7. SEÇÃO DE PLANOS & VALORES
+       7. PLANOS
        ========================================================================== */
     .pricing-grid {
       display: grid;
@@ -492,7 +498,7 @@
     }
 
     /* ==========================================================================
-       8. SEÇÃO FORM DE INTERESSE
+       8. CONTATO
        ========================================================================== */
     .contact-box {
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
@@ -598,7 +604,6 @@
       font-size: 13px;
     }
 
-    /* RESPONSIVIDADE */
     @media (max-width: 992px) {
       .hero-grid, .pillars-grid, .pricing-grid, .features-grid, .contact-box, .footer-grid {
         grid-template-columns: 1fr;
@@ -611,27 +616,37 @@
 <body>
 
   <!-- ==========================================================================
-     NAVBAR FIXA
+     NAVBAR INTEGRADA AO BACKEND
      ========================================================================== -->
   <header class="navbar">
     <div class="container">
       <div class="nav-wrapper">
-        <a href="#" class="logo">
+        <a href="index.php" class="logo">
           <div class="logo-badge">GC</div>
           <span>GymControl</span>
         </a>
 
         <ul class="nav-links">
           <li><a href="#inicio">Início</a></li>
-          <li><a href="#sobre">O que é?</a></li>
+          <li><a href="#sobre">A Plataforma</a></li>
           <li><a href="#recursos">Recursos</a></li>
-          <li><a href="#planos">Valores & Planos</a></li>
-          <li><a href="#contato">Contato</a></li>
+          <li><a href="#planos">Planos</a></li>
+          <li><a href="#contato">Fale Conosco</a></li>
         </ul>
 
         <div class="nav-cta">
-          <button class="btn btn-outline" onclick="abrirModalDemo()">Demonstração</button>
-          <a href="#contato" class="btn btn-accent">Assinar Agora</a>
+          <?php if ($logado): ?>
+            <a href="<?php echo htmlspecialchars($painelUrl); ?>" class="btn btn-accent">
+              <i class="fa-solid fa-gauge-high"></i> Meu Painel (<?php echo htmlspecialchars(explode(' ', $usuarioNome)[0]); ?>)
+            </a>
+            <a href="logout.php" class="btn btn-outline" style="padding: 10px 14px;" title="Sair">
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
+          <?php else: ?>
+            <a href="login.php" class="btn btn-primary">
+              <i class="fa-solid fa-arrow-right-to-bracket"></i> Acessar Sistema
+            </a>
+          <?php endif; ?>
         </div>
       </div>
     </div>
@@ -645,17 +660,23 @@
       <div class="hero-grid">
         <div class="hero-text">
           <div class="badge-pill">
-            <i class="fa-solid fa-sparkles"></i> Nova Plataforma SaaS Multi-tenant
+            <i class="fa-solid fa-shield-halved"></i> Gestão Completa & Controle de Acesso
           </div>
-          <h1>O Software de Gestão com <span>Reconhecimento Facial</span> para sua Academia</h1>
+          <h1>O Software de Gestão Centralizada para <span>Academias e Alunos</span></h1>
           <p>
-            O GymControl entrega o que os sistemas tradicionais prometem e vai além: segurança com biometria facial na catraca, personalização total com a sua marca e controle financeiro completo.
+            O GymControl conecta administradores, personal trainers e alunos em um só ambiente. Fichas de treinos dinâmicas, controle de mensalidades e mensagens diretas sem complicação.
           </p>
           <div class="hero-btns">
-            <a href="#planos" class="btn btn-primary btn-lg">
-              <i class="fa-solid fa-rocket"></i> Ver Planos & Assinar
-            </a>
-            <a href="#sobre" class="btn btn-outline">Conhecer a Plataforma</a>
+            <?php if ($logado): ?>
+              <a href="<?php echo htmlspecialchars($painelUrl); ?>" class="btn btn-primary">
+                <i class="fa-solid fa-gauge-high"></i> Ir para o Painel
+              </a>
+            <?php else: ?>
+              <a href="login.php" class="btn btn-primary">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i> Entrar no Sistema
+              </a>
+              <a href="#sobre" class="btn btn-outline">Conhecer a Plataforma</a>
+            <?php endif; ?>
           </div>
         </div>
 
@@ -665,21 +686,21 @@
               <div class="dot dot-red"></div>
               <div class="dot dot-yellow"></div>
               <div class="dot dot-green"></div>
-              <span style="font-size: 11px; color: #64748b; margin-left: 8px;">gymcontrol.io/totem-catraca</span>
+              <span style="font-size: 11px; color: #64748b; margin-left: 8px;">gymcontrol/acesso-sistema</span>
             </div>
             <div class="mockup-preview-screen">
               <div class="mockup-row">
                 <span style="font-size: 12px; color: #38bdf8; font-weight: 600;">
-                  <i class="fa-solid fa-camera"></i> Reconhecimento Facial Ativo
+                  <i class="fa-solid fa-id-card"></i> Validação de Matrícula
                 </span>
-                <span class="badge-pill" style="margin: 0; background: #dcfce7; color: #15803d; border: none;">Online</span>
+                <span class="badge-pill" style="margin: 0; background: #dcfce7; color: #15803d; border: none;">Ativo</span>
               </div>
               <div style="background: #0f172a; padding: 20px; border-radius: 6px; text-align: center;">
-                <div style="width: 64px; height: 64px; border-radius: 50%; background: #0284c7; margin: 0 auto 10px auto; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #fff;">
+                <div style="width: 58px; height: 58px; border-radius: 50%; background: #0284c7; margin: 0 auto 10px auto; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #fff;">
                   <i class="fa-solid fa-user-check"></i>
                 </div>
-                <h4 style="color: #fff; font-size: 15px;">Acesso Liberado!</h4>
-                <p style="color: #94a3b8; font-size: 12px; margin-top: 4px;">Aluno: Rodrigo Nogueira • Plano VIP</p>
+                <h4 style="color: #fff; font-size: 15px;">Matrícula Regular</h4>
+                <p style="color: #94a3b8; font-size: 12px; margin-top: 4px;">Aluno: Lucas Silva • Acesso Permitido</p>
               </div>
             </div>
           </div>
@@ -689,83 +710,83 @@
   </section>
 
   <!-- ==========================================================================
-     SEÇÃO: O QUE É O GYMCONTROL? (3 PILARES)
+     PILARES REALISTAS DO PROJETO
      ========================================================================== -->
   <section id="sobre" class="section">
     <div class="container">
       <div class="section-header">
         <h2>O que é o GymControl?</h2>
-        <p>Um ecossistema moderno para gestão de academias, pensado para substituir sistemas antigos por uma solução mais rápida, inteligente e personalizável.</p>
+        <p>Um sistema web desenvolvido para resolver o dia a dia da academia com controle de permissões e rotinas transparentes.</p>
       </div>
 
       <div class="pillars-grid">
         <div class="pillar-card">
           <div class="pillar-icon">
-            <i class="fa-solid fa-palette"></i>
-          </div>
-          <h3>Arquitetura Multi-Tenant</h3>
-          <p>Sua academia é única. O GymControl permite que você personalize a plataforma inteira com o seu nome, seu logotipo e as suas cores institucionais.</p>
-        </div>
-
-        <div class="pillar-card">
-          <div class="pillar-icon">
-            <i class="fa-solid fa-face-smile"></i>
-          </div>
-          <h3>Reconhecimento Facial Integrado</h3>
-          <p>Esqueça cartões ou biometria digital que falha. O sistema valida automaticamente o acesso na catraca verificando foto, matrícula e pagamento em tempo real.</p>
-        </div>
-
-        <div class="pillar-card">
-          <div class="pillar-icon">
             <i class="fa-solid fa-users-gear"></i>
           </div>
-          <h3>Gestão por Níveis de Acesso (RBAC)</h3>
-          <p>Interfaces operacionais sob medida para Administradores, Recepcionistas no balcão, Professores prescrevendo treinos e Alunos.</p>
+          <h3>Perfis RBAC Sob Medida</h3>
+          <p>Visões independentes e seguras para Administradores da unidade, Professores e Alunos, com dados estritamente protegidos por sessão.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">
+            <i class="fa-solid fa-dumbbell"></i>
+          </div>
+          <h3>Fichas de Treino Dinâmicas</h3>
+          <p>O personal trainer prescreve exercícios, repetições e cargas diretamente na ficha do aluno, disponível para consulta no celular.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">
+            <i class="fa-solid fa-comments"></i>
+          </div>
+          <h3>Comunicação Integrada</h3>
+          <p>Mural de mensagens diretas entre o aluno e seu treinador para alinhamento de metas, feedback de intensidade e dúvidas.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ==========================================================================
-     SEÇÃO: SOLUÇÕES & RECURSOS
+     RECURSOS E FUNCIONALIDADES
      ========================================================================== -->
   <section id="recursos" class="section features-section">
     <div class="container">
       <div class="section-header">
-        <h2>Tudo o que sua academia precisa para crescer</h2>
-        <p>Desenvolvido para eliminar filas no balcão e garantir zero inadimplência.</p>
+        <h2>Recursos Práticos da Aplicação</h2>
+        <p>Desenvolvido com arquitetura sólida em PHP e MySQL para máxima estabilidade.</p>
       </div>
 
       <div class="features-grid">
         <div class="feature-item">
-          <div class="feature-icon-box"><i class="fa-solid fa-credit-card"></i></div>
+          <div class="feature-icon-box"><i class="fa-solid fa-shield-check"></i></div>
           <div class="feature-info">
-            <h4>Controle Financeiro & Inadimplência</h4>
-            <p>Monitore mensalidades em dia, receba alertas de pendências automaticamente e bloqueie acessos indevidos na catraca.</p>
+            <h4>Controle de Status da Matrícula</h4>
+            <p>O sistema valida instantaneamente se o aluno está com o status ativo antes de liberar treinos ou permissões.</p>
           </div>
         </div>
 
         <div class="feature-item">
-          <div class="feature-icon-box"><i class="fa-solid fa-dumbbell"></i></div>
+          <div class="feature-icon-box"><i class="fa-solid fa-clipboard-list"></i></div>
           <div class="feature-info">
-            <h4>Fichas de Treino Dinâmicas</h4>
-            <p>Professores criam e atualizam treinos com séries, cargas e repetições de forma ágil para consulta instantânea.</p>
+            <h4>Gestão de Séries e Exercícios</h4>
+            <p>Organização clara de treinos divididos por grupos musculares com atualização em tempo real no banco relacional.</p>
           </div>
         </div>
 
         <div class="feature-item">
-          <div class="feature-icon-box"><i class="fa-solid fa-address-card"></i></div>
+          <div class="feature-icon-box"><i class="fa-solid fa-user-tie"></i></div>
           <div class="feature-info">
-            <h4>Balcão de Recepção Ágil</h4>
-            <p>Cadastre alunos em segundos capturando a foto direta da webcam e ativando a biometria sem complicações.</p>
+            <h4>Painel Operacional do Personal</h4>
+            <p>Área focada no professor, filtrando exclusivamente a lista dos alunos sob sua orientação.</p>
           </div>
         </div>
 
         <div class="feature-item">
-          <div class="feature-icon-box"><i class="fa-solid fa-chart-pie"></i></div>
+          <div class="feature-icon-box"><i class="fa-solid fa-lock"></i></div>
           <div class="feature-info">
-            <h4>Relatórios & Métricas Operacionais</h4>
-            <p>Acompanhe o faturamento, taxa de ocupação por horário e quantidade de acessos diários em tempo real.</p>
+            <h4>Autenticação Segura</h4>
+            <p>Senhas criptografadas com hash nativo e controle rigoroso de sessões ativas.</p>
           </div>
         </div>
       </div>
@@ -773,107 +794,97 @@
   </section>
 
   <!-- ==========================================================================
-     SEÇÃO: VALORES & PLANOS DE ASSINATURA
+     PLANOS DE MENSALIDADE DA ACADEMIA
      ========================================================================== -->
   <section id="planos" class="section">
     <div class="container">
       <div class="section-header">
-        <h2>Planos e Valores Transparentes</h2>
-        <p>Escolha o plano ideal para o tamanho da sua academia. Sem taxa de fidelidade nem letras miúdas.</p>
+        <h2>Planos da Academia</h2>
+        <p>Opções de matrícula pensadas para atender diferentes rotinas de treinamento.</p>
       </div>
 
       <div class="pricing-grid">
-        <!-- PLANO STARTER -->
         <div class="pricing-card">
           <div>
-            <div class="plan-name">Starter</div>
-            <div class="plan-desc">Ideal para estúdios, boxes de crossfit ou pequenas academias.</div>
+            <div class="plan-name">Básico</div>
+            <div class="plan-desc">Acesso livre à área de musculação e esteiras em horários flexíveis.</div>
             <div class="plan-price">R$ 89,90 <span>/mês</span></div>
 
             <ul class="plan-features">
-              <li><i class="fa-solid fa-check"></i> Até 150 Alunos Ativos</li>
-              <li><i class="fa-solid fa-check"></i> Gestão Financeira Completa</li>
-              <li><i class="fa-solid fa-check"></i> Prescrição de Treinos</li>
-              <li><i class="fa-solid fa-check"></i> 2 Contas de Operador</li>
+              <li><i class="fa-solid fa-check"></i> Área de Musculação Completa</li>
+              <li><i class="fa-solid fa-check"></i> Acesso ao Painel do Aluno</li>
+              <li><i class="fa-solid fa-check"></i> Ficha de Treino Digital</li>
             </ul>
           </div>
-          <a href="#contato" class="btn btn-primary" onclick="selecionarPlano('Starter')">Assinar Starter</a>
+          <a href="login.php" class="btn btn-primary">Matricular-se</a>
         </div>
 
-        <!-- PLANO PRO -->
         <div class="pricing-card popular">
-          <div class="popular-badge">Mais Popular</div>
+          <div class="popular-badge">Mais Escolhido</div>
           <div>
-            <div class="plan-name">Pro Facial</div>
-            <div class="plan-desc">Para academias de médio porte que buscam automação e controle com biometria.</div>
-            <div class="plan-price">R$ 299,90 <span>/mês</span></div>
+            <div class="plan-name">Pro Personal</div>
+            <div class="plan-desc">Acompanhamento contínuo de personal trainer e fichas personalizadas.</div>
+            <div class="plan-price">R$ 149,90 <span>/mês</span></div>
 
             <ul class="plan-features">
-              <li><i class="fa-solid fa-check"></i> Alunos Ilimitados</li>
-              <li><i class="fa-solid fa-check"></i> <strong>Reconhecimento Facial Integrado</strong></li>
-              <li><i class="fa-solid fa-check"></i> <strong>Identidade Visual Customizada (Multi-tenant)</strong></li>
-              <li><i class="fa-solid fa-check"></i> Suporte Prioritário WhatsApp</li>
+              <li><i class="fa-solid fa-check"></i> Todos os recursos do Básico</li>
+              <li><i class="fa-solid fa-check"></i> <strong>Personal Trainer Vinculado</strong></li>
+              <li><i class="fa-solid fa-check"></i> <strong>Troca de Mensagens Direta</strong></li>
+              <li><i class="fa-solid fa-check"></i> Atualização periódica de cargas</li>
             </ul>
           </div>
-          <a href="#contato" class="btn btn-accent" onclick="selecionarPlano('Pro Facial')">Assinar Pro Facial</a>
+          <a href="login.php" class="btn btn-accent">Matricular-se</a>
         </div>
 
-        <!-- PLANO ENTERPRISE -->
         <div class="pricing-card">
           <div>
-            <div class="plan-name">Enterprise</div>
-            <div class="plan-desc">Para redes de academias com múltiplas unidades e alta demanda.</div>
-            <div class="plan-price">R$ 499,90 <span>/mês</span></div>
+            <div class="plan-name">VIP Anual</div>
+            <div class="plan-desc">Compromisso a longo prazo com condições especiais e suporte total.</div>
+            <div class="plan-price">R$ 119,90 <span>/mês</span></div>
 
             <ul class="plan-features">
-              <li><i class="fa-solid fa-check"></i> Multi-Unidades & Redes</li>
-              <li><i class="fa-solid fa-check"></i> Reconhecimento Facial Ilimitado</li>
-              <li><i class="fa-solid fa-check"></i> API aberta para integrações</li>
-              <li><i class="fa-solid fa-check"></i> Gerente de Conta Dedicado</li>
+              <li><i class="fa-solid fa-check"></i> Acesso ilimitado 7 dias por semana</li>
+              <li><i class="fa-solid fa-check"></i> Personal Trainer dedicado</li>
+              <li><i class="fa-solid fa-check"></i> Avaliações de evolução periódicas</li>
             </ul>
           </div>
-          <a href="#contato" class="btn btn-primary" onclick="selecionarPlano('Enterprise')">Falar com Consultor</a>
+          <a href="login.php" class="btn btn-primary">Matricular-se</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ==========================================================================
-     SEÇÃO FORMULÁRIO DE INTERESSE (LEAD CAPTURE)
+     CONTATO
      ========================================================================== -->
   <section id="contato" class="section" style="padding-top: 0;">
     <div class="container">
       <div class="contact-box">
         <div class="contact-info">
-          <h3>Pronto para transformar a gestão da sua academia?</h3>
-          <p>Preencha os dados ao lado para receber um contato da nossa equipe ou agendar uma demonstração guiada do GymControl.</p>
+          <h3>Fale com nossa equipe</h3>
+          <p>Tire dúvidas sobre matrículas, horários de funcionamento ou conheça mais sobre as unidades atendidas pelo GymControl.</p>
           
           <div style="display: flex; flex-direction: column; gap: 14px;">
             <div style="display: flex; align-items: center; gap: 10px;">
               <i class="fa-solid fa-circle-check" style="color: var(--cor-accent);"></i>
-              <span>Teste grátis por 14 dias sem compromisso</span>
+              <span>Atendimento ágil para novos alunos</span>
             </div>
             <div style="display: flex; align-items: center; gap: 10px;">
               <i class="fa-solid fa-circle-check" style="color: var(--cor-accent);"></i>
-              <span>Migração simples dos seus dados atuais</span>
+              <span>Profissionais credenciados à disposição</span>
             </div>
           </div>
         </div>
 
-        <form id="formInteresse" onsubmit="enviarInteresse(event)">
-          <div class="form-group">
-            <label>Nome da Academia *</label>
-            <input type="text" id="nomeAcademia" required placeholder="Ex: FitCenter Copacabana">
-          </div>
-
+        <form id="formInteresse" onsubmit="enviarMensagem(event)">
           <div class="form-group">
             <label>Seu Nome Completo *</label>
             <input type="text" id="nomeContato" required placeholder="Digite seu nome">
           </div>
 
           <div class="form-group">
-            <label>E-mail Corporativo / Principal *</label>
-            <input type="email" id="emailContato" required placeholder="seuemail@academia.com.br">
+            <label>E-mail *</label>
+            <input type="email" id="emailContato" required placeholder="seuemail@exemplo.com">
           </div>
 
           <div class="form-group">
@@ -882,16 +893,17 @@
           </div>
 
           <div class="form-group">
-            <label>Plano de Interesse</label>
+            <label>Assunto</label>
             <select id="planoInteresse">
-              <option value="Pro Facial">Plano Pro Facial (Recomendado)</option>
-              <option value="Starter">Plano Starter</option>
-              <option value="Enterprise">Plano Enterprise</option>
+              <option value="Pro Personal">Matrícula Plano Pro Personal</option>
+              <option value="Basico">Matrícula Plano Básico</option>
+              <option value="VIP">Matrícula Plano VIP Anual</option>
+              <option value="Duvida">Dúvidas Gerais</option>
             </select>
           </div>
 
           <button type="submit" class="btn btn-accent" style="width: 100%; margin-top: 10px;">
-            <i class="fa-solid fa-paper-plane"></i> Solicitar Contato / Assinar
+            <i class="fa-solid fa-paper-plane"></i> Enviar Mensagem
           </button>
         </form>
       </div>
@@ -906,56 +918,48 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <h4>GymControl</h4>
-          <p>O sistema definitivo para gestão inteligente, segurança por biometria e controle total para academias de todos os portes.</p>
+          <p>O sistema definitivo para gestão inteligente, rotinas de treinos e acompanhamento esportivo de alunos e profissionais.</p>
         </div>
 
         <div class="footer-links">
-          <h5>Plataforma</h5>
+          <h5>Navegação</h5>
           <ul>
-            <li><a href="#sobre">O que é</a></li>
+            <li><a href="#sobre">A Plataforma</a></li>
             <li><a href="#recursos">Recursos</a></li>
-            <li><a href="#planos">Planos & Preços</a></li>
+            <li><a href="#planos">Planos & Mensalidades</a></li>
           </ul>
         </div>
 
         <div class="footer-links">
-          <h5>Recursos</h5>
+          <h5>Acesso Rápido</h5>
           <ul>
-            <li><a href="#inicio">Reconhecimento Facial</a></li>
-            <li><a href="#sobre">Arquitetura Multi-tenant</a></li>
-            <li><a href="#recursos">Controle Financeiro</a></li>
+            <li><a href="login.php">Área do Aluno</a></li>
+            <li><a href="login.php">Área do Professor</a></li>
+            <li><a href="login.php">Área Administrativa</a></li>
           </ul>
         </div>
 
         <div class="footer-links">
-          <h5>Suporte</h5>
+          <h5>Acadêmico</h5>
           <ul>
-            <li><a href="#contato">Falar com Consultor</a></li>
-            <li><a href="#contato">Central de Ajuda</a></li>
+            <li><a href="#">UNISUAM — 2026</a></li>
+            <li><a href="#">Módulo de Back-end</a></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; 2026 GymControl. Todos os direitos reservados. Centro Universitário Augusto Motta (UNISUAM).</p>
+        <p>&copy; 2026 GymControl. Todos os direitos reservados. Projeto Acadêmico.</p>
       </div>
     </div>
   </footer>
 
   <script>
-    function selecionarPlano(nomePlano) {
-      document.getElementById('planoInteresse').value = nomePlano;
-    }
-
-    function enviarInteresse(e) {
+    function enviarMensagem(e) {
       e.preventDefault();
-      const academia = document.getElementById('nomeAcademia').value;
-      alert(`Obrigado pelo interesse, ${academia}! Nossa equipe entrará em contato em breve para liberar seu acesso ao GymControl.`);
+      const nome = document.getElementById('nomeContato').value;
+      alert(`Mensagem enviada com sucesso, ${nome}! Em breve retornaremos o contato.`);
       document.getElementById('formInteresse').reset();
-    }
-
-    function abrirModalDemo() {
-      alert("Para testar o GymControl, role a página até a seção de Planos e selecione 'Assinar' ou preencha o formulário de contato!");
     }
   </script>
 </body>
