@@ -228,6 +228,7 @@ $usuarioNome = $logado ? $_SESSION['usuario_nome'] : '';
 
     .hero-text h1 span {
       background: linear-gradient(135deg, #38bdf8, #10b981);
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
