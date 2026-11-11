@@ -67,15 +67,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("
                 SELECT id, nome, email, matricula, senha, nivel_acesso, status 
                 FROM usuarios 
-                WHERE matricula = :identificador 
+                WHERE matricula = :matricula 
                    OR (id = :numId AND :isNum = 1)
-                   OR email = :identificador
+                   OR email = :email
                 LIMIT 1
             ");
             $stmt->execute([
-                ':identificador' => $identificador,
+                ':matricula' => $identificador,
                 ':numId'         => $numId,
-                ':isNum'         => $isNum ? 1 : 0
+                ':isNum'         => $isNum ? 1 : 0,
+                ':email' => $identificador
             ]);
             $usuario = $stmt->fetch();
 
