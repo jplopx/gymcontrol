@@ -797,118 +797,140 @@ $usuarioNome = $logado ? $_SESSION['usuario_nome'] : '';
      PLANOS DE MENSALIDADE DA ACADEMIA
      ========================================================================== -->
   <section id="planos" class="section">
-    <div class="container">
-      <div class="section-header">
-        <h2>Planos da Academia</h2>
-        <p>Opções de matrícula pensadas para atender diferentes rotinas de treinamento.</p>
+  <div class="container">
+    <div class="section-header">
+      <span class="badge-pill">PLANOS DE ASSINATURA SAAS</span>
+      <h2>Escolha o plano ideal para a sua Academia</h2>
+      <p>Contrate a plataforma GymControl para modernizar a sua gestão. Sem taxas sobre as mensalidades dos seus alunos.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- PLANO STUDIO -->
+      <div class="pricing-card">
+        <div>
+          <h3 class="plan-name">Plano Studio</h3>
+          <p class="plan-desc">Ideal para estúdios de personal, boxes pequenos e academias de bairro.</p>
+          <div class="plan-price">R$ 89,90 <span>/mês</span></div>
+          <ul class="plan-features">
+            <li>✓ Até 200 alunos ativos</li>
+            <li>✓ 1 Licença de Usuário (Recepção)</li>
+            <li>✓ Módulo de Prescrição de Treinos</li>
+            <li>✓ Controle Financeiro Básico</li>
+            <li>✓ Suporte via E-mail</li>
+          </ul>
+        </div>
+        <button class="btn btn-outline btn-block" onclick="selecionarPlano('Plano Studio')">Contratar para Minha Academia</button>
       </div>
 
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <div>
-            <div class="plan-name">Básico</div>
-            <div class="plan-desc">Acesso livre à área de musculação e esteiras em horários flexíveis.</div>
-            <div class="plan-price">R$ 89,90 <span>/mês</span></div>
-
-            <ul class="plan-features">
-              <li><i class="fa-solid fa-check"></i> Área de Musculação Completa</li>
-              <li><i class="fa-solid fa-check"></i> Acesso ao Painel do Aluno</li>
-              <li><i class="fa-solid fa-check"></i> Ficha de Treino Digital</li>
-            </ul>
-          </div>
-          <a href="login.php" class="btn btn-primary">Matricular-se</a>
+      <!-- PLANO SAFIRA (POPULAR) -->
+      <div class="pricing-card popular">
+        <span class="popular-badge">Mais Escolhido</span>
+        <div>
+          <h3 class="plan-name">Plano Safira</h3>
+          <p class="plan-desc">A solução completa para academias em crescimento que buscam alta segurança.</p>
+          <div class="plan-price">R$ 299,90 <span>/mês</span></div>
+          <ul class="plan-features">
+            <li>✓ Alunos Ativos Ilimitados</li>
+            <li>✓ <strong>Reconhecimento Facial na Catraca</strong></li>
+            <li>✓ Personalização da Marca (Multi-tenant)</li>
+            <li>✓ Painel de Professores & Alunos</li>
+            <li>✓ Gestão de Adimplência Automatizada</li>
+            <li>✓ Suporte Prioritário no WhatsApp</li>
+          </ul>
         </div>
+        <button class="btn btn-primary btn-block" onclick="selecionarPlano('Plano Safira')">Contratar para Minha Academia</button>
+      </div>
 
-        <div class="pricing-card popular">
-          <div class="popular-badge">Mais Escolhido</div>
-          <div>
-            <div class="plan-name">Pro Personal</div>
-            <div class="plan-desc">Acompanhamento contínuo de personal trainer e fichas personalizadas.</div>
-            <div class="plan-price">R$ 149,90 <span>/mês</span></div>
-
-            <ul class="plan-features">
-              <li><i class="fa-solid fa-check"></i> Todos os recursos do Básico</li>
-              <li><i class="fa-solid fa-check"></i> <strong>Personal Trainer Vinculado</strong></li>
-              <li><i class="fa-solid fa-check"></i> <strong>Troca de Mensagens Direta</strong></li>
-              <li><i class="fa-solid fa-check"></i> Atualização periódica de cargas</li>
-            </ul>
-          </div>
-          <a href="login.php" class="btn btn-accent">Matricular-se</a>
+      <!-- PLANO INFINITY -->
+      <div class="pricing-card">
+        <div>
+          <h3 class="plan-name">Plano Infinity</h3>
+          <p class="plan-desc">Para grandes redes de academias, complexos esportivos e multi-unidades.</p>
+          <div class="plan-price">R$ 429,90 <span>/mês</span></div>
+          <ul class="plan-features">
+            <li>✓ Recursos Ilimitados</li>
+            <li>✓ Múltiplas Unidades/Academias</li>
+            <li>✓ Reconhecimento Facial Ilimitado</li>
+            <li>✓ Módulo Avançado de Relatórios & BI</li>
+            <li>✓ API de Integração Financeira</li>
+            <li>✓ Gerente de Conta Dedicado 24/7</li>
+          </ul>
         </div>
-
-        <div class="pricing-card">
-          <div>
-            <div class="plan-name">VIP Anual</div>
-            <div class="plan-desc">Compromisso a longo prazo com condições especiais e suporte total.</div>
-            <div class="plan-price">R$ 119,90 <span>/mês</span></div>
-
-            <ul class="plan-features">
-              <li><i class="fa-solid fa-check"></i> Acesso ilimitado 7 dias por semana</li>
-              <li><i class="fa-solid fa-check"></i> Personal Trainer dedicado</li>
-              <li><i class="fa-solid fa-check"></i> Avaliações de evolução periódicas</li>
-            </ul>
-          </div>
-          <a href="login.php" class="btn btn-primary">Matricular-se</a>
-        </div>
+        <button class="btn btn-outline btn-block" onclick="selecionarPlano('Plano Infinity')">Contratar para Minha Academia</button>
       </div>
     </div>
-  </section>
-
+  </div>
+</section>
   <!-- ==========================================================================
      CONTATO
      ========================================================================== -->
-  <section id="contato" class="section" style="padding-top: 0;">
-    <div class="container">
-      <div class="contact-box">
-        <div class="contact-info">
-          <h3>Fale com nossa equipe</h3>
-          <p>Tire dúvidas sobre matrículas, horários de funcionamento ou conheça mais sobre as unidades atendidas pelo GymControl.</p>
-          
-          <div style="display: flex; flex-direction: column; gap: 14px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fa-solid fa-circle-check" style="color: var(--cor-accent);"></i>
-              <span>Atendimento ágil para novos alunos</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <i class="fa-solid fa-circle-check" style="color: var(--cor-accent);"></i>
-              <span>Profissionais credenciados à disposição</span>
-            </div>
+  <section id="contato" class="section">
+  <div class="container">
+    <div class="contact-box">
+      
+      <div class="contact-info">
+        <span class="badge-pill">FALE COM NOSSO TIME COMERCIAL</span>
+        <h3>Modernize a gestão da sua academia com o GymControl</h3>
+        <p>Preencha o formulário para agendar uma demonstração personalizada da plataforma, tirar dúvidas sobre planos SaaS e entender como implementar a biometria facial na sua catraca.</p>
+        
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+          <li>✓ Atendimento consultivo para donos e gestores</li>
+          <li>✓ Demonstração prática do painel multi-tenant</li>
+          <li>✓ Auxílio na escolha do plano ideal para sua unidade</li>
+        </ul>
+      </div>
+
+      <form id="formInteresse" class="contact-form-body" onsubmit="enviarInteresse(event)">
+        <div class="form-group">
+          <label for="nomeAcademia">Nome da Academia ou Estúdio *</label>
+          <input type="text" id="nomeAcademia" required placeholder="Ex: FitCenter Copacabana">
+        </div>
+
+        <div class="form-group">
+          <label for="nomeResponsavel">Seu Nome (Gestor / Proprietário) *</label>
+          <input type="text" id="nomeResponsavel" required placeholder="Ex: Nicolas Tavares">
+        </div>
+
+        <div class="form-group">
+          <label for="emailCorporativo">E-mail de Contato *</label>
+          <input type="email" id="emailCorporativo" required placeholder="contato@suaacademia.com.br">
+        </div>
+
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-group">
+            <label for="telefoneWhatsapp">WhatsApp com DDD *</label>
+            <input type="tel" id="telefoneWhatsapp" required placeholder="(21) 99999-9999">
+          </div>
+
+          <div class="form-group">
+            <label for="planoInteresse">Plano de Interesse</label>
+            <select id="planoInteresse">
+              <option value="Não sei / Quero ajuda">Quero ajuda para escolher</option>
+              <option value="Plano Studio">Plano Studio (Até 200 alunos)</option>
+              <option value="Plano Safira">Plano Safira (Reconhecimento Facial)</option>
+              <option value="Plano Infinity">Plano Infinity (Multi-unidades)</option>
+            </select>
           </div>
         </div>
 
-        <form id="formInteresse" onsubmit="enviarMensagem(event)">
-          <div class="form-group">
-            <label>Seu Nome Completo *</label>
-            <input type="text" id="nomeContato" required placeholder="Digite seu nome">
-          </div>
+        <div class="form-group">
+          <label for="qtdAlunos">Estimativa de Alunos Ativos</label>
+          <select id="qtdAlunos">
+            <option value="Até 100">Até 100 alunos</option>
+            <option value="100 a 300">100 a 300 alunos</option>
+            <option value="300 a 800">300 a 800 alunos</option>
+            <option value="Mais de 800">Mais de 800 alunos</option>
+          </select>
+        </div>
 
-          <div class="form-group">
-            <label>E-mail *</label>
-            <input type="email" id="emailContato" required placeholder="seuemail@exemplo.com">
-          </div>
+        <button type="submit" class="btn btn-primary btn-block" style="height: 48px; font-size: 15px; margin-top: 10px;">
+          Solicitar Demonstração do GymControl
+        </button>
+      </form>
 
-          <div class="form-group">
-            <label>WhatsApp / Telefone *</label>
-            <input type="tel" id="telefoneContato" required placeholder="(21) 99999-9999">
-          </div>
-
-          <div class="form-group">
-            <label>Assunto</label>
-            <select id="planoInteresse">
-              <option value="Pro Personal">Matrícula Plano Pro Personal</option>
-              <option value="Basico">Matrícula Plano Básico</option>
-              <option value="VIP">Matrícula Plano VIP Anual</option>
-              <option value="Duvida">Dúvidas Gerais</option>
-            </select>
-          </div>
-
-          <button type="submit" class="btn btn-accent" style="width: 100%; margin-top: 10px;">
-            <i class="fa-solid fa-paper-plane"></i> Enviar Mensagem
-          </button>
-        </form>
-      </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- ==========================================================================
      FOOTER INSTITUCIONAL
@@ -955,11 +977,30 @@ $usuarioNome = $logado ? $_SESSION['usuario_nome'] : '';
   </footer>
 
   <script>
-    function enviarMensagem(e) {
-      e.preventDefault();
-      const nome = document.getElementById('nomeContato').value;
-      alert(`Mensagem enviada com sucesso, ${nome}! Em breve retornaremos o contato.`);
-      document.getElementById('formInteresse').reset();
+    function enviarInteresse(e) {
+  e.preventDefault();
+  
+  const campoAcademia = document.getElementById('nomeAcademia');
+  const campoResponsavel = document.getElementById('nomeResponsavel');
+  
+  const academia = campoAcademia && campoAcademia.value ? campoAcademia.value : 'sua academia';
+  const responsavel = campoResponsavel && campoResponsavel.value ? campoResponsavel.value : 'Gestor';
+  
+  alert(`Obrigado pelo contato, ${responsavel}! Nossa equipe comercial entrará em contato em breve para apresentar a plataforma GymControl para a ${academia}.`);
+  
+  const form = document.getElementById('formInteresse');
+  if (form) {
+    form.reset();
+  }
+}
+
+    function selecionarPlano(plano) {
+      const campoPlano = document.getElementById('planoInteresse');
+      if (campoPlano) {
+        campoPlano.value = plano;
+        campoPlano.scrollIntoView({ behavior: 'smooth' });
+        campoPlano.focus();
+      }
     }
   </script>
 </body>

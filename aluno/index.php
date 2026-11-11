@@ -1,11 +1,19 @@
 <?php
-require_once __DIR__ . '/../config/auth.php';
-verificarAcesso('aluno');
+//require_once __DIR__ . '/../config/auth.php';
+//verificarAcesso('aluno');
 
-require_once __DIR__ . '/../config/conexao.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+// Dados simulados para o teste sem precisar de login
+$_SESSION['usuario_id'] = 1; // ID do usuário logado   
+$_SESSION['usuario_nome'] = 'Nicolas Tavares'; // Nome do usuário logado
+$_SESSION['usuario_tipo'] = 'aluno'; // Tipo do usuário logado
+
+//require_once __DIR__ . '/../config/conexao.php';
 
 $usuario_id = $_SESSION['usuario_id'];
-
+/*
 // Busca os dados do aluno e o nome do professor vinculado a ele
 $stmt = $pdo->prepare("
     SELECT a.*, p.nome as nome_professor 
@@ -15,7 +23,7 @@ $stmt = $pdo->prepare("
 ");
 $stmt->execute([':usuario_id' => $usuario_id]);
 $dadosAluno = $stmt->fetch();
-
+*/
 require_once __DIR__ . '/../layouts/header.php';
 ?>
 
