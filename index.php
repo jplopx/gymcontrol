@@ -410,7 +410,23 @@ $usuarioNome = $logado ? ($_SESSION['usuario_nome'] ?? '') : '';
     /* ==========================================================================
        7. PLANOS
        ========================================================================== */
-    .pricing-grid {
+        .btn-block {
+      width: 100%;
+    }
+
+       .pricing-card .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--cor-principal);
+      color: var(--cor-principal);
+    }
+
+       .pricing-card .btn-outline:hover {
+      background: var(--cor-principal);
+      border-color: var(--cor-principal);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+    }
+       .pricing-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 28px;
