@@ -1,8 +1,8 @@
 <?php
 // admin/recepcao.php - Balcão & Recepção GymControl
-// Requer autenticação do usuário (recepcionista / admin)
-// require_once '../config/auth.php';
-// require_once '../config/conexao.php';
+require_once __DIR__ . '/../config/auth.php';
+verificarAcesso(['recepcao', 'admin']);
+require_once __DIR__ . '/../config/conexao.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recepção & Balcão - GymControl</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Inserir no topo da tag <style> de admin/recepcao.php */
 :root {
@@ -285,12 +285,24 @@ body {
     <header class="navbar">
         <div class="container">
             <div class="nav-wrapper">
-                <a href="#" class="logo">
+                <a href="../index.php" class="logo">
                     <div class="logo-badge">GC</div>
                     <span>GymControl <small style="font-size: 12px; color: #38bdf8; font-weight: 500;">| Balcão & Recepção</small></span>
                 </a>
-                <div class="nav-cta">
-                    <a href="../logout.php" class="btn btn-outline" style="padding: 6px 14px; font-size: 13px;">Sair</a>
+                <div class="nav-cta" style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 13px; color: #94a3b8;">
+                        Olá, <strong style="color: #fff;"><?php echo htmlspecialchars($_SESSION['usuario_nome'] ?? 'Atendente'); ?></strong>
+                        <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-left: 6px;">
+                            <?php echo htmlspecialchars($_SESSION['usuario_nivel'] ?? 'Recepção'); ?>
+                        </span>
+                    </span>
+                    <?php if (($_SESSION['usuario_nivel'] ?? '') === 'admin'): ?>
+                        <a href="index.php" class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">Painel Geral</a>
+                        <a href="loja.php" class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">Loja / PDV</a>
+                    <?php endif; ?>
+                    <a href="../logout.php" class="btn btn-outline" style="padding: 6px 14px; font-size: 13px;">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sair
+                    </a>
                 </div>
             </div>
         </div>
@@ -298,6 +310,8 @@ body {
 
     <main class="container recepcao-container">
         
+        <?php renderizarAvisoPermissao(); ?>
+
         <h2>Painel do Atendente</h2>
         <p style="color: var(--text-muted); margin-bottom: 20px;">Gerencie o acesso de alunos, realize novas matrículas e registre a biometria facial para a catraca.</p>
 

@@ -1,38 +1,32 @@
 <?php
-// 1. AUTENTICAÇÃO (Desativada temporariamente para teste visual)
-// require_once __DIR__ . '/../config/auth.php';
-// verificarAcesso('aluno');
-
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-} 
-
-// Dados simulados da sessão para teste local
-$_SESSION['usuario_id'] = 1;
-$_SESSION['usuario_nome'] = 'Nicolas Tavares';
-$_SESSION['usuario_tipo'] = 'aluno';
-
-// 2. CONEXÃO COM O BANCO DE DADOS (Desativada temporariamente para teste visual)
-// require_once __DIR__ . '/../config/conexao.php';
+// aluno/meus_treinos.php - Fichas de Treino do Aluno
+require_once __DIR__ . '/../config/auth.php';
+verificarAcesso(['aluno', 'admin']);
+require_once __DIR__ . '/../config/conexao.php';
 
 $usuario_id = $_SESSION['usuario_id'];
 
-// Dados simulados do aluno
+// Dados do professor vinculado
 $dadosAluno = [
     'nome_professor' => 'Prof. Carlos Silva'
 ];
 
-/* 
-// No futuro, quando integrarem o banco MySQL, a busca será assim:
-$stmt = $pdo->prepare("
-    SELECT a.*, p.nome as nome_professor 
-    FROM alunos a 
-    LEFT JOIN usuarios p ON a.professor_id = p.id 
-    WHERE a.usuario_id = :usuario_id
-");
-$stmt->execute([':usuario_id' => $usuario_id]);
-$dadosAluno = $stmt->fetch();
-*/
+try {
+    $stmt = $pdo->prepare("
+        SELECT a.*, p.nome as nome_professor 
+        FROM alunos a 
+        LEFT JOIN usuarios p ON a.professor_id = p.id 
+        WHERE a.usuario_id = :usuario_id
+        LIMIT 1
+    ");
+    $stmt->execute([':usuario_id' => $usuario_id]);
+    $res = $stmt->fetch();
+    if ($res && !empty($res['nome_professor'])) {
+        $dadosAluno['nome_professor'] = $res['nome_professor'];
+    }
+} catch (PDOException $e) {
+    // Mantém fallback simulado em caso de base sem conexão
+}
 
 // ESTRUTURA DINÂMICA DE TREINOS (Cadastre quantas fichas o aluno tiver: A, B, C, D, E...)
 $treinos = [

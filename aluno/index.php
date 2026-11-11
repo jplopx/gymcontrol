@@ -1,31 +1,33 @@
 <?php
-//require_once __DIR__ . '/../config/auth.php';
-//verificarAcesso('aluno');
-
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-// Dados simulados para o teste sem precisar de login
-$_SESSION['usuario_id'] = 1; // ID do usuário logado   
-$_SESSION['usuario_nome'] = 'Nicolas Tavares'; // Nome do usuário logado
-$_SESSION['usuario_tipo'] = 'aluno'; // Tipo do usuário logado
-
-//require_once __DIR__ . '/../config/conexao.php';
+// aluno/index.php - Painel Exclusivo do Aluno
+require_once __DIR__ . '/../config/auth.php';
+verificarAcesso(['aluno', 'admin']);
+require_once __DIR__ . '/../config/conexao.php';
 
 $usuario_id = $_SESSION['usuario_id'];
-/*
-// Busca os dados do aluno e o nome do professor vinculado a ele
-$stmt = $pdo->prepare("
-    SELECT a.*, p.nome as nome_professor 
-    FROM alunos a 
-    LEFT JOIN usuarios p ON a.professor_id = p.id 
-    WHERE a.usuario_id = :usuario_id
-");
-$stmt->execute([':usuario_id' => $usuario_id]);
-$dadosAluno = $stmt->fetch();
-*/
+$dadosAluno = null;
+
+try {
+    // Busca dados complementares do aluno e nome do treinador vinculado
+    $stmt = $pdo->prepare("
+        SELECT a.*, p.nome AS nome_professor 
+        FROM alunos a 
+        LEFT JOIN usuarios p ON a.professor_id = p.id 
+        WHERE a.usuario_id = :usuario_id
+        LIMIT 1
+    ");
+    $stmt->execute([':usuario_id' => $usuario_id]);
+    $dadosAluno = $stmt->fetch();
+} catch (PDOException $e) {
+    // Em caso de tabela pendente ou erro de conexão, mantém fallback gracioso
+    $dadosAluno = null;
+}
+
 require_once __DIR__ . '/../layouts/header.php';
 ?>
+
+<!-- Renderização de alertas de acesso negado quando redirecionado -->
+<?php renderizarAvisoPermissao(); ?>
 
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
     <div>
@@ -42,7 +44,14 @@ require_once __DIR__ . '/../layouts/header.php';
         </h3>
         <div style="margin-bottom: 12px; font-size: 14px;">
             <span style="color: var(--text-muted);">Status:</span> 
-            <span style="color: #10b981; font-weight: 700; margin-left: 6px;"><i class="fa-solid fa-circle-check"></i> Ativa</span>
+            <?php 
+                $statusMatricula = $dadosAluno['status_matricula'] ?? 'ativa';
+                $isAtiva = ($statusMatricula === 'ativa');
+            ?>
+            <span style="color: <?php echo $isAtiva ? '#10b981' : '#f59e0b'; ?>; font-weight: 700; margin-left: 6px;">
+                <i class="fa-solid <?php echo $isAtiva ? 'fa-circle-check' : 'fa-circle-exclamation'; ?>"></i> 
+                <?php echo ucfirst($statusMatricula); ?>
+            </span>
         </div>
         <div style="font-size: 14px;">
             <span style="color: var(--text-muted);">Personal Trainer:</span> 
@@ -52,7 +61,7 @@ require_once __DIR__ . '/../layouts/header.php';
         </div>
     </div>
     
-    <!-- Card Ficha de Treino (Onde o Nicolas vai focar) -->
+    <!-- Card Ficha de Treino -->
     <div class="panel-card" style="margin-bottom: 0;">
         <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px; color: #fff; display: flex; align-items: center; gap: 10px;">
             <i class="fa-solid fa-dumbbell" style="color: var(--cor-accent);"></i> Ficha de Treino

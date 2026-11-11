@@ -1,8 +1,8 @@
 <?php
-session_start();
-$logado = isset($_SESSION['usuario_id']);
-$painelUrl = $logado ? $_SESSION['usuario_tipo'] . '/index.php' : 'login.php';
-$usuarioNome = $logado ? $_SESSION['usuario_nome'] : '';
+require_once __DIR__ . '/config/auth.php';
+$logado = !empty($_SESSION['usuario_id']) && !empty($_SESSION['usuario_nivel']);
+$painelUrl = $logado ? getRotaPrincipalPorNivel($_SESSION['usuario_nivel']) : 'login.php';
+$usuarioNome = $logado ? ($_SESSION['usuario_nome'] ?? '') : '';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

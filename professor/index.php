@@ -1,23 +1,30 @@
 <?php
 require_once __DIR__ . '/../config/auth.php';
-verificarAcesso('professor');
+verificarAcesso(['professor', 'admin']);
 
 require_once __DIR__ . '/../config/conexao.php';
 
 $professor_id = $_SESSION['usuario_id'];
+$meusAlunos = [];
 
-// Busca apenas os alunos vinculados a este professor específico
-$stmt = $pdo->prepare("
-    SELECT u.id, u.nome, u.email, a.status_matricula 
-    FROM usuarios u 
-    JOIN alunos a ON u.id = a.usuario_id 
-    WHERE a.professor_id = :professor_id AND u.status = 'ativo'
-");
-$stmt->execute([':professor_id' => $professor_id]);
-$meusAlunos = $stmt->fetchAll();
+try {
+    // Busca apenas os alunos vinculados a este professor específico
+    $stmt = $pdo->prepare("
+        SELECT u.id, u.nome, u.email, a.status_matricula 
+        FROM usuarios u 
+        JOIN alunos a ON u.id = a.usuario_id 
+        WHERE a.professor_id = :professor_id AND u.status = 'ativo'
+    ");
+    $stmt->execute([':professor_id' => $professor_id]);
+    $meusAlunos = $stmt->fetchAll();
+} catch (PDOException $e) {
+    $meusAlunos = [];
+}
 
 require_once __DIR__ . '/../layouts/header.php';
 ?>
+
+<?php renderizarAvisoPermissao(); ?>
 
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
     <div>
