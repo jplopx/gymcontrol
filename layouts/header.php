@@ -1,7 +1,5 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once __DIR__ . '/../config/auth.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -77,7 +75,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
         <div class="user-tag">
           <span>Olá, <strong><?php echo htmlspecialchars($_SESSION['usuario_nome'] ?? 'Usuário'); ?></strong></span>
-          <span class="badge-cargo"><?php echo htmlspecialchars($_SESSION['usuario_tipo'] ?? 'Painel'); ?></span>
+          <span class="badge-cargo"><?php echo htmlspecialchars($_SESSION['usuario_nivel'] ?? $_SESSION['usuario_tipo'] ?? 'Painel'); ?></span>
           <a href="../logout.php" class="btn btn-danger">
             <i class="fa-solid fa-right-from-bracket"></i> Sair
           </a>
