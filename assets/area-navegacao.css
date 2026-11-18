@@ -1,0 +1,136 @@
+/* GymControl - Posição dos atalhos do aluno e do professor.
+   Reutiliza a preferência layout_menu da própria academia, sem JS ou SQL.
+   O layout superior original é preservado. */
+.gc-navigation-shell { display: contents; }
+
+@media (min-width: 992px) {
+  /* Toda a navegação ocupa uma única coluna fixa; o conteúdo mantém o recuo
+     de 250px que já era aplicado pelo cabeçalho quando layout_menu=lateral. */
+  .gc-with-sidebar .gc-navigation-shell {
+    position: fixed;
+    z-index: 50;
+    inset: 0 auto 0 0;
+    width: 250px;
+    height: 100vh;
+    height: 100dvh;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 18px;
+    padding: 28px 16px 20px;
+    background: rgba(10, 20, 36, .97);
+    border-right: 1px solid rgba(148, 163, 184, .2);
+    box-shadow: 8px 0 35px rgba(0, 0, 0, .13);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  /* Dispensa caixas intermediárias na grade: logo, atalhos e dados do usuário
+     tornam-se os três elementos da coluna, sem duplicação de links. */
+  .gc-with-sidebar .gc-navigation-shell > .navbar,
+  .gc-with-sidebar .gc-navigation-shell > .navbar > .container,
+  .gc-with-sidebar .gc-navigation-shell > .navbar > .container > .nav-wrapper {
+    display: contents;
+  }
+
+  .gc-with-sidebar .gc-navigation-shell .logo {
+    grid-row: 1;
+    align-self: start;
+    min-width: 0;
+    max-width: 100%;
+    gap: 9px;
+    font-size: 18px;
+  }
+  .gc-with-sidebar .gc-navigation-shell .logo-badge { flex: 0 0 38px; }
+  .gc-with-sidebar .gc-navigation-shell .logo span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    line-height: 1.3;
+  }
+
+  .gc-with-sidebar .gc-navigation-shell :is(.gc-student-subnav, .gc-trainer-subnav) {
+    grid-row: 2;
+    position: static;
+    top: auto;
+    left: auto;
+    bottom: auto;
+    z-index: auto;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    padding: 8px 0;
+    margin: 0;
+    background: transparent;
+    border: 0;
+    border-top: 1px solid rgba(148,163,184,.14);
+    border-bottom: 1px solid rgba(148,163,184,.14);
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .gc-with-sidebar .gc-navigation-shell :is(.gc-student-subnav, .gc-trainer-subnav) > .container {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .gc-with-sidebar .gc-navigation-shell :is(.gc-student-nav-scroll, .gc-trainer-nav-scroll) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 4px 3px 4px 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(56,189,248,.35) transparent;
+    overscroll-behavior: contain;
+  }
+  .gc-with-sidebar .gc-navigation-shell :is(.gc-student-nav-link, .gc-trainer-nav-link) {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    white-space: normal;
+    padding: 11px 10px;
+    text-align: left;
+    line-height: 1.35;
+  }
+  .gc-with-sidebar .gc-navigation-shell :is(.gc-student-nav-link, .gc-trainer-nav-link):hover {
+    transform: translateX(2px);
+  }
+  .gc-with-sidebar .gc-navigation-shell .user-tag {
+    grid-row: 3;
+    align-self: end;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 9px;
+    width: 100%;
+    min-width: 0;
+    margin-top: 0;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+  }
+  .gc-with-sidebar .gc-navigation-shell .badge-cargo { max-width: 100%; }
+  .gc-with-sidebar .gc-navigation-shell .btn-danger { width: 100%; }
+}
+
+/* Na tela pequena a preferência lateral vira navegação superior funcional:
+   sem coluna fixa, sem sobreposição e com rolagem horizontal dos atalhos. */
+@media (max-width: 991px) {
+  .gc-with-sidebar .gc-navigation-shell { display: contents; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gc-with-sidebar .gc-navigation-shell :is(.gc-student-nav-link, .gc-trainer-nav-link) {
+    transition: none;
+  }
+}

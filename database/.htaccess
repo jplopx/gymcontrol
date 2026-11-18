@@ -1,0 +1,3 @@
+# Scripts SQL e migrações somente por terminal / phpMyAdmin; não distribuir via HTTP.
+Options -Indexes
+Require all denied

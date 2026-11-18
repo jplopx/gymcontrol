@@ -1,0 +1,4 @@
+# Não publicar dumps SQL e arquivos auxiliares do projeto.
+<FilesMatch "\.(?:sql|bak|rar|zip)$">
+  Require all denied
+</FilesMatch>

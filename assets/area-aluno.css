@@ -1,0 +1,267 @@
+/* GymControl | Área do aluno 2026.11 — identidade da landing page.
+   Escopo deliberado: body.gc-student-area. Nenhum estilo desta folha altera outros perfis. */
+.gc-student-area {
+  --gc-sky: #38bdf8;
+  --gc-blue: var(--cor-principal, #0284c7);
+  --gc-green: var(--cor-accent, #10b981);
+  --gc-card: rgba(22, 37, 59, .92);
+  --gc-border: rgba(148, 163, 184, .19);
+  --gc-muted: #a7bad1;
+  background: #0b1424;
+  color: #f8fafc;
+  line-height: 1.55;
+}
+.gc-student-area::before {
+  content: ""; position: fixed; z-index: -1; pointer-events: none; inset: 0;
+  background:
+    radial-gradient(ellipse 50vw 47vw at 96% 6%, rgba(2,132,199,.13), transparent 75%),
+    radial-gradient(ellipse 48vw 38vw at 0% 75%, rgba(16,185,129,.07), transparent 75%),
+    linear-gradient(145deg, #0b1424, #0f172a 65%, #0c172b);
+}
+.gc-student-area a:focus-visible, .gc-student-area button:focus-visible,
+.gc-student-area input:focus-visible, .gc-student-area textarea:focus-visible,
+.gc-student-area select:focus-visible, .gc-student-area [role="button"]:focus-visible {
+  outline: 3px solid #7dd3fc; outline-offset: 3px;
+}
+.gc-student-area .container { max-width: 1270px; }
+.gc-student-area .navbar {
+  height: 76px;
+  background: rgba(10, 20, 36, .86);
+  border-bottom-color: rgba(148, 163, 184, .14);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.12);
+}
+.gc-student-area .logo { letter-spacing: -.045em; font-size: 20px; min-width: 0; }
+.gc-student-area .logo span { overflow-wrap: anywhere; }
+.gc-student-area .logo-badge { border-radius: 13px; background: linear-gradient(135deg,var(--gc-blue),var(--gc-green)); box-shadow: 0 8px 24px rgba(2,132,199,.24); }
+.gc-student-area .logo-img { max-height: 42px; max-width: 125px; object-fit: contain; }
+.gc-student-area .badge-cargo { color: #a5ecdf; border-color: rgba(16,185,129,.24); background: rgba(16,185,129,.09); }
+.gc-student-area .user-tag { gap: 12px; }
+.gc-student-area .user-tag > span:first-child { color: #aec2d8; }
+.gc-student-area .user-tag strong { color: #fff; }
+.gc-student-area .btn-danger { background: rgba(248,113,113,.08); border-color: rgba(248,113,113,.2); color: #fca5a5; }
+.gc-student-area .btn-danger:hover { background: #e54e60; color: #fff; }
+
+/* Navegação horizontal persistente, sem interferir no menu de outras áreas. */
+.gc-student-subnav {
+  position: sticky; top: 76px; z-index: 45;
+  background: rgba(12, 24, 43, .91);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(148,163,184,.15);
+}
+.gc-student-nav-scroll { display: flex; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: thin; scrollbar-color: rgba(56,189,248,.25) transparent; padding: 10px 0; }
+.gc-student-nav-scroll::-webkit-scrollbar { height: 4px; }
+.gc-student-nav-scroll::-webkit-scrollbar-thumb { background: rgba(56,189,248,.26); border-radius: 20px; }
+.gc-student-nav-link {
+  white-space: nowrap; flex: 0 0 auto; display: inline-flex; gap: 8px; align-items: center;
+  color: #aabdd2; font-size: 12px; font-weight: 650; letter-spacing: -.01em;
+  padding: 10px 13px; border-radius: 10px; border: 1px solid transparent;
+  transition: color .24s, background .24s, border-color .24s, transform .24s;
+}
+.gc-student-nav-link i { font-size: 13px; }
+.gc-student-nav-link:hover { color: #fff; background: rgba(56,189,248,.1); transform: translateY(-1px); }
+.gc-student-nav-link[aria-current="page"] { background: linear-gradient(135deg, rgba(2,132,199,.22), rgba(16,185,129,.10)); border-color: rgba(56,189,248,.22); color: #fff; }
+.gc-student-nav-link[aria-current="page"] i { color: #6ee7b7; }
+
+.gc-student-area .main-wrapper { padding: 27px 0 72px; }
+.gc-student-area .main-wrapper > .container { min-width: 0; }
+.gc-student-area .gc-section-marker {
+  display: inline-flex; align-items: center; gap: 9px; margin: 3px 0 16px;
+  font-size: 10px; letter-spacing: .19em; font-weight: 800; text-transform: uppercase;
+  color: #8bd5fb;
+}
+.gc-section-marker::before { content: ""; width: 19px; height: 2px; border-radius: 99px; background: linear-gradient(90deg, var(--gc-green),var(--gc-sky)); }
+.gc-student-area .main-wrapper > .container > h1,
+.gc-student-area .aluno-title h1, .gc-student-area .progresso-topo h1,
+.gc-student-area .evo-title, .gc-student-area .rank-top h1, .gc-student-area .chat-topo h1 {
+  letter-spacing: -.045em; line-height: 1.17; font-weight: 800;
+  font-size: clamp(24px, 3vw, 36px);
+}
+.gc-student-area .main-wrapper > .container > h1 { margin-top: 3px !important; margin-bottom: 10px !important; }
+.gc-student-area .main-wrapper > .container > p,
+.gc-student-area .aluno-title p, .gc-student-area .progresso-topo p,
+.gc-student-area .evo-sub, .gc-student-area .rank-muted,
+.gc-student-area .chat-topo p { color: var(--gc-muted); }
+.gc-student-area .main-wrapper > .container > p { max-width: 850px; }
+.gc-student-area .main-wrapper > .container > p > a,
+.gc-student-area .btn-voltar, .gc-student-area .chat-voltar,
+.gc-student-area .progresso-topo > a { color: #75d0fa; }
+
+/* Cartões, dados e listas preservam seu HTML e funcionalidades atuais. */
+.gc-student-area .panel-card, .gc-student-area .gc-dash-stat,
+.gc-student-area .gc-dash-panel, .gc-student-area .evo-stat,
+.gc-student-area .exercicio-card, .gc-student-area .ds-card,
+.gc-student-area .gami-medalha, .gc-student-area .evo-measure {
+  background: var(--gc-card); border: 1px solid var(--gc-border);
+  border-radius: 20px; box-shadow: 0 14px 40px rgba(0,0,0,.12);
+  min-width: 0; position: relative;
+  transition: border-color .25s ease, box-shadow .3s ease, transform .3s cubic-bezier(.2,.8,.2,1), background .25s;
+}
+.gc-student-area .panel-card::before, .gc-student-area .gc-dash-panel::before,
+.gc-student-area .gc-dash-stat::before {
+  content: ""; position: absolute; pointer-events: none; inset: 0; border-radius: inherit;
+  background: radial-gradient(280px circle at var(--gc-pointer-x, 50%) var(--gc-pointer-y, 0%), rgba(56,189,248,.075), transparent 80%);
+}
+@media (hover: hover) and (pointer: fine) {
+  .gc-student-area .panel-card:hover, .gc-student-area .gc-dash-stat:hover,
+  .gc-student-area .gc-dash-panel:hover, .gc-student-area .exercicio-card:hover,
+  .gc-student-area .evo-stat:hover, .gc-student-area .ds-card:hover,
+  .gc-student-area .gami-medalha:hover {
+    transform: translateY(-4px); border-color: rgba(56,189,248,.34);
+    box-shadow: 0 23px 46px rgba(0,0,0,.20), 0 0 0 1px rgba(56,189,248,.035);
+  }
+}
+.gc-student-area .panel-card h2, .gc-student-area .gc-dash-panel h2 { letter-spacing: -.025em; }
+.gc-student-area .panel-card h2 i, .gc-student-area .panel-card h3 i { margin-right: 5px; }
+.gc-student-area .btn, .gc-student-area .gc-dash-hero a,
+.gc-student-area .rank-btn, .gc-student-area .btn-ficha {
+  border-radius: 12px; transition: transform .23s, box-shadow .23s, filter .23s, background .23s;
+}
+.gc-student-area .btn-primary { background: linear-gradient(135deg, var(--gc-blue),#0369a1); box-shadow: 0 8px 20px rgba(2,132,199,.19); }
+.gc-student-area .btn-accent { background: linear-gradient(135deg,var(--gc-green),#047857); box-shadow: 0 8px 20px rgba(16,185,129,.15); }
+.gc-student-area .btn:hover, .gc-student-area .gc-dash-hero a:hover,
+.gc-student-area .rank-btn:hover { transform: translateY(-2px); filter: brightness(1.09); }
+.gc-student-area .form-group input, .gc-student-area .form-group select,
+.gc-student-area textarea, .gc-student-area input[type="text"],
+.gc-student-area input[type="number"], .gc-student-area input[type="date"] {
+  border-radius: 12px; background: #0b1728; border-color: rgba(148,163,184,.24); color: #f8fafc;
+}
+.gc-student-area input:focus, .gc-student-area select:focus,
+.gc-student-area textarea:focus { border-color: #38bdf8; }
+.gc-student-area .main-wrapper table { max-width: 100%; }
+.gc-student-area .evo-table { min-width: 545px; }
+.gc-student-area .evo-table th { color: #98b5d0; font-weight: 700; letter-spacing: .025em; }
+.gc-student-area .evo-table tr:hover td { background: rgba(56,189,248,.04); }
+
+/* Dashboard: área hero e estatísticas como continuação da landing. */
+.gc-student-area .gc-dash-hero {
+  display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;
+  position: relative; isolation: isolate; overflow: hidden; border-radius: 25px;
+  background: linear-gradient(115deg,#173650 3%,#12304b 46%,#10283c 100%);
+  border: 1px solid rgba(56,189,248,.27); padding: clamp(24px, 4vw, 42px);
+  box-shadow: 0 24px 65px rgba(0,0,0,.18), inset 0 1px rgba(255,255,255,.05);
+}
+.gc-student-area .gc-dash-hero::before {
+  content: ""; position: absolute; z-index: -1; width: 430px; height: 430px; right: -110px; top: -180px;
+  border-radius: 50%; border: 1px solid rgba(56,189,248,.15);
+  box-shadow: 0 0 0 54px rgba(56,189,248,.035),0 0 0 110px rgba(16,185,129,.025);
+  animation: gc-halo 12s ease-in-out infinite alternate;
+}
+.gc-student-area .gc-dash-hero::after { content:"";position:absolute;pointer-events:none;inset:0;z-index:-1;background:radial-gradient(circle at 80% 30%,rgba(16,185,129,.16),transparent 48%); }
+.gc-student-area .gc-dash-hero > div {flex:1 1 330px;min-width:0;}
+.gc-student-area .gc-dash-hero h1 { font-size: clamp(27px, 3.3vw, 41px); letter-spacing: -.055em; line-height: 1.1; }
+.gc-student-area .gc-dash-hero p { color: #bcd4e9; font-size: 15px; max-width: 560px; line-height: 1.7; }
+.gc-student-area .gc-dash-hero a { padding: 14px 20px; background: linear-gradient(135deg,#0ea5e9,#0284c7);box-shadow:0 10px 28px rgba(2,132,199,.24);white-space:nowrap; }
+.gc-student-area .gc-dash-stats { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px; margin: 22px 0; }
+.gc-student-area .gc-dash-stat { padding: 23px; overflow:hidden; }
+.gc-student-area .gc-dash-stat .gc-label { display:flex;align-items:center;gap:8px;margin-bottom:13px; }
+.gc-student-area .gc-dash-stat strong { display:block;line-height:1.13; }
+.gc-student-area .gc-dash-stat small { display:block;margin-top:9px; }
+.gc-student-area .gc-dash-stat::after { content:"";width:48px;height:3px;background:linear-gradient(90deg,var(--gc-blue),var(--gc-green));position:absolute;left:23px;bottom:0;border-radius:5px 5px 0 0;opacity:.8; }
+.gc-student-area .gc-dash-stat .gc-label { color: #a6bed7; font-size: 12px; }
+.gc-student-area .gc-dash-stat strong { font-size:clamp(24px,2.6vw,36px);letter-spacing:-.06em; }
+.gc-student-area .gc-dash-stat small { color: #a6bed7; }
+.gc-student-area .gc-dash-columns { display:grid;grid-template-columns:1.1fr 1fr;gap: 18px; }
+.gc-student-area .gc-dash-panel { padding: 25px; }
+.gc-student-area .gc-dash-panel h2 { font-size: 19px;margin-bottom:15px; }
+.gc-student-area .gc-dash-panel p {font-size:13px;color:#a6bdd3;margin-bottom:12px;}
+.gc-student-area .gc-dash-row {display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid rgba(148,163,184,.16);} 
+.gc-student-area .gc-dash-progress, .gc-student-area .progresso-barra,
+.gc-student-area .gami-bar, .gc-student-area .ds-bar {
+  background: rgba(2,8,19,.6); border-radius: 30px; overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,.22);
+}
+.gc-student-area .gc-dash-progress > div, .gc-student-area .progresso-preenchimento,
+.gc-student-area .gami-bar > div, .gc-student-area .ds-bar > div {
+  background: linear-gradient(90deg,var(--gc-blue),#38bdf8,var(--gc-green));border-radius:30px;
+  animation: gc-fill 1s cubic-bezier(.2,.8,.2,1) both;
+  transform-origin: left center;
+}
+.gc-student-area .gc-dash-section { letter-spacing: -.04em; font-size: 25px; margin-top: 33px; }
+.gc-student-area .gc-quick-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(min(275px,100%),1fr));gap:17px;margin-bottom:35px; }
+.gc-student-area .gc-quick-card { margin:0!important; overflow:hidden; display:flex;flex-direction:column; gap:0; }
+.gc-student-area .gc-quick-card h3 { line-height:1.4; letter-spacing:-.025em; }
+.gc-student-area .gc-quick-card p { line-height:1.68; flex:1; }
+.gc-student-area .gc-quick-card .btn { margin-top:auto; }
+.gc-student-area .gc-quick-card::after { content:"";position:absolute;width:130px;height:130px;border:1px solid rgba(56,189,248,.075);border-radius:50%;right:-50px;top:-60px;pointer-events:none; }
+
+/* Ficha de treino, progresso, evolução, desafios e mensagens. */
+.gc-student-area .aluno-header, .gc-student-area .progresso-topo, .gc-student-area .chat-topo,
+.gc-student-area .rank-top { margin-bottom: 28px; }
+.gc-student-area .fichas-nav { border-radius: 14px; background:rgba(4,13,26,.72);border-color:rgba(148,163,184,.18);padding:6px; }
+.gc-student-area .btn-ficha.active { background:linear-gradient(135deg,var(--gc-blue),#0369a1); }
+.gc-student-area .orientacao-card { border-radius:18px;background:rgba(2,132,199,.09);padding:21px;border-color:rgba(56,189,248,.25); }
+.gc-student-area .exercicio-card { padding:20px 24px;gap:18px; }
+.gc-student-area .exercicio-card.concluido { opacity:.78; background: rgba(16,185,129,.07);border-color:rgba(16,185,129,.25); }
+.gc-student-area .exercicio-card.concluido .check-box { background:var(--gc-green); }
+.gc-student-area .check-box { min-width:31px; min-height:31px; border-radius:10px; }
+.gc-student-area .exercicio-info { min-width:0; }
+.gc-student-area .exercicio-tags { gap:9px; }
+.gc-student-area .tag-item { padding:5px 9px; border-radius:8px;background:rgba(148,163,184,.07); }
+.gc-student-area .progresso-dia { background: rgba(4,13,25,.55); border-color:rgba(148,163,184,.14);border-radius:12px; }
+.gc-student-area .progresso-dia.feito { background: rgba(16,185,129,.13);border-color:rgba(16,185,129,.46); }
+.gc-student-area .progresso-dia.hoje { outline:2px solid rgba(56,189,248,.7);outline-offset:1px; }
+.gc-student-area .progresso-numero,.gc-student-area .gami-num { letter-spacing:-.06em; }
+.gc-student-area .evo-stat,.gc-student-area .evo-measure { padding:20px;border-radius:17px; }
+.gc-student-area .evo-chart { border-color:rgba(148,163,184,.2); }
+.gc-student-area .evo-bar { background:linear-gradient(180deg,var(--gc-green),var(--gc-sky),var(--gc-blue));border-radius:10px 10px 0 0; }
+.gc-student-area .gami-medalha.bloqueada { opacity:.57; filter:saturate(.7); }
+.gc-student-area .rank-row { padding:18px 12px; }
+.gc-student-area .rank-highlight { background:rgba(56,189,248,.095);border-radius:12px; }
+.gc-student-area .rank-position { color:#fcd34d; }
+.gc-student-area .ds-card { padding:21px; }
+.gc-student-area .gc-agenda-event { background:rgba(7,20,37,.5);border:1px solid rgba(148,163,184,.17);border-radius:16px;padding:18px;margin:12px 0; transition:background .25s,border-color .25s; }
+.gc-student-area .gc-agenda-event:hover { border-color:rgba(56,189,248,.35);background:rgba(2,132,199,.06); }
+.gc-student-area .chat-janela { background:#0b1729; border:1px solid rgba(148,163,184,.17);border-radius:17px; }
+.gc-student-area .chat-balao { border-radius:15px 15px 15px 5px;background:rgba(30,41,59,.9); }
+.gc-student-area .chat-linha.minha .chat-balao { border-radius:15px 15px 5px 15px;background:linear-gradient(140deg,rgba(2,132,199,.29),rgba(16,185,129,.12)); }
+.gc-student-area .chat-form textarea { background:#081629;border-radius:14px; }
+
+/* Redução de movimento segue preferência do sistema. Nada essencial depende de efeitos. */
+@keyframes gc-halo { from{transform:translate(0,0) scale(.95)}to{transform:translate(-30px,26px) scale(1.07)} }
+@keyframes gc-fill { from{transform:scaleX(0)}to{transform:scaleX(1)} }
+@keyframes gc-fade-up { from{opacity:0;transform:translateY(17px)}to{opacity:1;transform:translateY(0)} }
+.gc-student-area .gc-dash-hero,.gc-student-area .gc-section-marker { animation:gc-fade-up .65s both; }
+.gc-student-area .gc-dash-hero { animation-delay:.08s; }
+.gc-student-area .gc-reveal-ready { opacity:0; }
+.gc-student-area .gc-reveal-ready.gc-inview { animation: gc-fade-up .62s cubic-bezier(.2,.8,.2,1) both; animation-delay:var(--gc-delay,0ms); }
+.gc-student-area .main-wrapper :is(.panel-card, .gc-dash-stat, .gc-dash-panel, .evo-stat, .exercicio-card, .ds-card, .gami-medalha, .evo-measure) { scroll-margin-top: 170px; }
+@media (min-width: 992px) {
+  /* O cabeçalho existente pode usar o layout lateral configurado pela academia. */
+  .gc-student-area.gc-with-sidebar .navbar { height:100vh; }
+  .gc-student-area.gc-with-sidebar .gc-student-subnav { top:0; }
+}
+@media (max-width: 950px) {
+  .gc-student-area .gc-dash-columns { grid-template-columns:1fr; }
+  .gc-student-area .gc-dash-stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 680px) {
+  .gc-student-area .navbar { height:auto;min-height:72px;padding:11px 0; }
+  .gc-student-area .nav-wrapper { gap:12px;align-items:flex-start;flex-wrap:wrap; }
+  .gc-student-area .logo { font-size:17px; }
+  .gc-student-area .user-tag { flex-wrap:wrap;gap:8px;justify-content:flex-start;font-size:12px; }
+  .gc-student-area .badge-cargo { font-size:10px; }
+  .gc-student-area .btn-danger { padding:7px 11px;font-size:12px; }
+  .gc-student-area .gc-student-subnav { top:0; position:relative; }
+  .gc-student-area .gc-student-nav-link { padding:9px 11px;font-size:12px; }
+  .gc-student-area .main-wrapper { padding:25px 0 48px; }
+  .gc-student-area .container { padding:0 17px; }
+  .gc-student-area .gc-dash-hero { padding:26px 22px; }
+  .gc-student-area .gc-dash-hero a { width:100%; justify-content:center; }
+  .gc-student-area .gc-dash-stats { gap:10px; }
+  .gc-student-area .gc-dash-stat { padding:17px; }
+  .gc-student-area .gc-dash-panel,.gc-student-area .panel-card { padding:21px; }
+  .gc-student-area .exercicio-card { padding:16px; }
+  .gc-student-area .gc-quick-grid { gap:13px; }
+  .gc-student-area .evo-grid,.gc-student-area .progresso-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 390px) {
+  .gc-student-area .logo span { max-width:180px; }
+  .gc-student-area .gc-dash-stat strong { font-size:23px; }
+  .gc-student-area .progresso-calendario { gap:3px; }
+  .gc-student-area .evo-grid,.gc-student-area .progresso-grid { grid-template-columns:1fr 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gc-student-area *, .gc-student-area *::before,.gc-student-area *::after { animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important; }
+  .gc-student-area .gc-reveal-ready { opacity:1!important;transform:none!important; }
+}
